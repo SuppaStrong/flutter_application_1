@@ -1,4 +1,3 @@
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -41,6 +40,11 @@ void main(List<String> args) {
   // static
   class1.method1();
   print(class1.method2());
+
+  //late
+  Weather weather = Weather();
+  String weatherDegrees = weather.temperature.toString();
+  print(weatherDegrees);
 
   //Ham chuyen doi String to Int , Double :
   int stringToInt(String strs) {
@@ -95,7 +99,16 @@ class class1 {
   }
 
   static int method2() {
-    return 1;
+    return 69;
+  }
+}
+
+class Weather {
+  late int temperature = doLater();
+
+  static int doLater() {
+    print("fetch api weather take too much time !!!");
+    return 36;
   }
 }
 
