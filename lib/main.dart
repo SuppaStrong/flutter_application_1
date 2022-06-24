@@ -44,7 +44,7 @@ void main(List<String> args) {
   //late
   Weather weather = Weather();
   String weatherDegrees = weather.temperature.toString();
-  print(weatherDegrees);
+  print("$weatherDegrees *C");
 
   //Ham chuyen doi String to Int , Double :
   int stringToInt(String strs) {
