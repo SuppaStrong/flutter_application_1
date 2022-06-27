@@ -1,170 +1,120 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
-void main(List<String> args) {
-  var array1 = [];
-  var arrayLe = [];
-  var arrayChan = [];
-  var arrayNguyenTo = [];
-
-  for (int i = 0; i <= 100; i++) {
-    array1.add(i);
-    if (array1[i] & 1 == 1) {
-      arrayLe.add(i);
-    } else {
-      arrayChan.add(i);
-    }
-  }
-  //BAI 1 :*********************************************************************
-
-  // Khai bao toan bo kieu du lieu
-  dynamic something = "Hello";
-  something = [1, 2, 3];
-  something = 123;
-  something = 123.321;
-  something = true;
-  something = {"Name": "Cuong69"};
-
-  var something2 = "Hello2";
-  // etc ...
-
-  //Null
-  String? nunn = null;
-  List<String> listNunn = nunn?.split("") ?? ["Hello"];
-
-  // Late , const , final , static
-  const smt = 100;
-  final smt1;
-
-  // static
-  class1.method1();
-  print(class1.method2());
-
-  //late
-  Weather weather = Weather();
-  String weatherDegrees = weather.temperature.toString();
-  print("$weatherDegrees *C");
-
-  //Ham chuyen doi String to Int , Double :
-  int stringToInt(String strs) {
-    try {
-      return int.parse(strs);
-    } catch (e) {
-      print(e.toString());
-      return -1;
-    }
-  }
-
-  double stringToDob(String strs) {
-    try {
-      return double.parse(strs);
-    } catch (e) {
-      print(e.toString());
-      return -1;
-    }
-  }
-
-//Ham chuyen doi Int to String , Double :
-  String intToString(int numberInt) => numberInt.toString();
-  double intToDouble(int numberInt) => numberInt.toDouble();
-//Ham chuyen doi Double to String , Int :
-  int doubleToInt(double numberDob) => numberDob.toInt();
-  String doubleToString(double numberDob) => numberDob.toString();
-
-  // Giai thua 6
-  int giaiThua6 = giaiThua(6);
-  print("Giai thua cua 6 -> $giaiThua6");
-
-  //BAI 2 :*********************************************************************
-  // Mang
-  print("Mang so tu nhien gom 100 phan tu -> $array1");
-  // So le
-  print("So le trong mang -> $arrayLe");
-  // So chan
-  print("So chan trong mang -> $arrayChan");
-  //BAI 3 :*********************************************************************
-  //So nguyen to
-  for (int i = 0; i < 100; i++) {
-    if (soNguyenTo(i)) {
-      arrayNguyenTo.add(i);
-    }
-  }
-  print("Mang so nguyen to truoc n -> $arrayNguyenTo");
+void main() {
+  Student student = Student();
+  student.showInfo();
+  var a = student.remainMember();
+  print("Can them $a hoc vien");
 }
 
-class class1 {
-  static void method1() {
-    print("Hello Static");
+abstract class BuildAndroid {
+  doAndroid();
+}
+
+abstract class BuildIos {
+  doIos();
+}
+
+abstract class BuildDesktopApp {
+  doDesktopApp();
+}
+
+abstract class BuildWeb {
+  doWeb();
+}
+
+class Student extends Flutter {
+
+  int remainMember() {
+    if (listStudent.length < numberStudentNeeded) {
+      return numberStudentNeeded - listStudent.length;
+    }
+    return -1;
+  }
+}
+ 
+class Flutter implements BuildAndroid, BuildDesktopApp, BuildIos, BuildWeb {
+  String className = "Flutter";
+  int numberStudentNeeded = 11;
+  final listStudent = <String>['A', 'B'];
+
+  void showInfo() {
+    print("Class $className need $numberStudentNeeded and have $listStudent");
   }
 
-  static int method2() {
-    return 69;
+  
+
+  @override
+  doAndroid() {
+    print("Can do Android Apps");
+  }
+
+  @override
+  doDesktopApp() {
+    print("Can do Desktop Apps");
+  }
+
+  @override
+  doIos() {
+    print("Can do Ios Apps");
+  }
+
+  @override
+  doWeb() {
+    print("Can do Web Apps");
   }
 }
 
-class Weather {
-  late int temperature = doLater();
+class Ios implements BuildIos {
+  String className = "Ios";
+  int numberStudentNeeded = 13;
+  final listStudent = <String>["D", "E", "F"];
+  // int remainMember() {
+  //   if (listStudent.length < numberStudentNeeded) {
+  //     return numberStudentNeeded - listStudent.length;
+  //   }
+  //   return -1;
+  // }
 
-  static int doLater() {
-    print("fetch api weather take too much time !!!");
-    return 36;
+  @override
+  doIos() {
+    print("Can do Ios Apps");
   }
 }
 
-int giaiThua(int number) {
-  // Đệ quy
-  if (number == 1) {
-    return 1;
+class Android implements BuildAndroid {
+  String className = "Android";
+  int numberStudentNeeded = 12;
+  final listStudent = <String>["B", "C", "D"];
+  // int remainMember() {
+  //   if (listStudent.length < numberStudentNeeded) {
+  //     return numberStudentNeeded - listStudent.length;
+  //   }
+  //   return -1;
+  // }
+
+  @override
+  doAndroid() {
+    print("Can do Android Apps");
   }
-  return number * giaiThua(number - 1);
 }
 
-bool soNguyenTo(int n) {
-  if (n < 2) {
-    return false;
-  }
-  for (int i = 2; i <= sqrt(n); i++) {
-    if (n % i == 0) {
-      return false;
-    }
-  }
-  return true;
-}
+class Web implements BuildWeb {
+  String className = "Web";
+  int numberStudentNeeded = 14;
+  final listStudent = <String>["F"];
+  // int remainMember() {
+  //   if (listStudent.length < numberStudentNeeded) {
+  //     return numberStudentNeeded - listStudent.length;
+  //   }
+  //   return -1;
+  // }
 
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
-// *
+  @override
+  doWeb() {
+    print("Can do Web Apps");
+  }
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
