@@ -20,7 +20,19 @@ void main(List<String> args) {
   // Bai 7
   var listDulicate = <int>[1, 4, 6, 8, 3, 4, 1, 6];
   var bai7 = <int>[];
+  
 
+  for (int i = 0; i < listDulicate.length; i++) {
+    for (int j = i + 1; j < listDulicate.length; j++) {
+      if (listDulicate[i] == listDulicate[j]) {
+        bai7.add(listDulicate[i]);
+      }
+      
+    }
+  }
+
+  print("Bai 7 $bai7");
+  
   // Giai bai 1,2,3
   for (int i = 0; i < listSoNguyen.length; i++) {
     if (listSoNguyen[i] % 2 == 0) {
@@ -51,6 +63,7 @@ void main(List<String> args) {
   for (int i = 0; i < listTong.length; i++) {
     count += listTong[i];
   }
+
   //Bai 7
 
   //Bai 1 2 3
