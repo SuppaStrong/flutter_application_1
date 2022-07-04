@@ -1,227 +1,178 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
-void main() {
-  Student student = Student();
-  student.showInfo();
-  var a = student.remainMember();
-  print("Can them $a hoc vien");
-}
+void main(List<String> args) {
+  //runApp(const MyApp());
 
-abstract class BuildAndroid {
-  doAndroid();
-}
+  // Bai 1,2,3
+  var listSoNguyen = <int>[1, 2, 3, 4, 5, 6, 7, 8, 10];
+  var listSoChan = <int>[];
+  var listSoNguyenTo = <int>[];
+  var listHopSo = <int>[];
 
-abstract class BuildIos {
-  doIos();
-}
+  //Bai 4
+  var listSoNguyenCanSapXepTang = <int>[1, 4, 6, 8, 3, 2, 10, 9];
+  //Bai 5
+  var listSoNguyenCanSapXepGiam = <int>[];
+  // Bai 6
+  var listTong = <int>[1, 2, 3, 4, 5, 6, 7, 8, 10];
+  // Bai 7
+  var listDulicate = <int>[1, 4, 6, 8, 3, 4, 1, 6];
+  var bai7 = <int>[];
 
-abstract class BuildDesktopApp {
-  doDesktopApp();
-}
-
-abstract class BuildWeb {
-  doWeb();
-}
-
-class Student extends Flutter {
-
-  int remainMember() {
-    if (listStudent.length < numberStudentNeeded) {
-      return numberStudentNeeded - listStudent.length;
+  // Giai bai 1,2,3
+  for (int i = 0; i < listSoNguyen.length; i++) {
+    if (listSoNguyen[i] % 2 == 0) {
+      listSoChan.add(listSoNguyen[i]);
     }
-    return -1;
-  }
-}
- 
-class Flutter implements BuildAndroid, BuildDesktopApp, BuildIos, BuildWeb {
-  String className = "Flutter";
-  int numberStudentNeeded = 11;
-  final listStudent = <String>['A', 'B'];
-
-  void showInfo() {
-    print("Class $className need $numberStudentNeeded and have $listStudent");
+    if (soNguyenTo(listSoNguyen[i])) {
+      listSoNguyenTo.add(listSoNguyen[i]);
+    }
+    if (hopSo(listSoNguyen[i])) {
+      listHopSo.add(listSoNguyen[i]);
+    }
   }
 
-  
-
-  @override
-  doAndroid() {
-    print("Can do Android Apps");
+  // Giai bai 4
+  for (int i = 0; i < listSoNguyenCanSapXepTang.length; i++) {
+    int pivot = i;
+    for (int j = pivot + 1; j < listSoNguyenCanSapXepTang.length; j++) {
+      if (listSoNguyenCanSapXepTang[j] < listSoNguyenCanSapXepTang[pivot]) {
+        pivot = j; //[4] = [1]
+        int temp = listSoNguyenCanSapXepTang[pivot]; //
+        listSoNguyenCanSapXepTang[pivot] = listSoNguyenCanSapXepTang[i];
+        listSoNguyenCanSapXepTang[i] = temp;
+      }
+    }
   }
-
-  @override
-  doDesktopApp() {
-    print("Can do Desktop Apps");
+  // Bai 6
+  int count = 0;
+  for (int i = 0; i < listTong.length; i++) {
+    count += listTong[i];
   }
+  //Bai 7
 
-  @override
-  doIos() {
-    print("Can do Ios Apps");
-  }
+  //Bai 1 2 3
+  print("List so chan -> $listSoChan");
+  print("List so nguyen to -> $listSoNguyenTo");
+  print("List hop so -> $listHopSo");
+  //Bai 4
+  print("List so da sap xep tang dan bai 4 $listSoNguyenCanSapXepTang");
+  // Bai 5
+  listSoNguyenCanSapXepGiam = listSoNguyenCanSapXepTang.reversed.toList();
+  print("Giam $listSoNguyenCanSapXepGiam");
+  //Bai 6
+  print("Tong list bai 6 -> $count");
+  //Bai 7
 
-  @override
-  doWeb() {
-    print("Can do Web Apps");
-  }
-}
-
-class Ios implements BuildIos {
-  String className = "Ios";
-  int numberStudentNeeded = 13;
-  final listStudent = <String>["D", "E", "F"];
-  // int remainMember() {
-  //   if (listStudent.length < numberStudentNeeded) {
-  //     return numberStudentNeeded - listStudent.length;
-  //   }
-  //   return -1;
-  // }
-
-  @override
-  doIos() {
-    print("Can do Ios Apps");
-  }
+  //Bai 13
+  int giaithua8 = giaiThua(8);
+  print("Giai thua cua 8! $giaithua8");
+  //
 }
 
-class Android implements BuildAndroid {
-  String className = "Android";
-  int numberStudentNeeded = 12;
-  final listStudent = <String>["B", "C", "D"];
-  // int remainMember() {
-  //   if (listStudent.length < numberStudentNeeded) {
-  //     return numberStudentNeeded - listStudent.length;
-  //   }
-  //   return -1;
-  // }
-
-  @override
-  doAndroid() {
-    print("Can do Android Apps");
+// Bai 1 2 3
+bool soNguyenTo(int n) {
+  if (n < 2) {
+    return false;
   }
+  for (int i = 2; i <= sqrt(n); i++) {
+    if (n % i == 0) {
+      return false;
+    }
+  }
+  return true;
 }
 
-class Web implements BuildWeb {
-  String className = "Web";
-  int numberStudentNeeded = 14;
-  final listStudent = <String>["F"];
-  // int remainMember() {
-  //   if (listStudent.length < numberStudentNeeded) {
-  //     return numberStudentNeeded - listStudent.length;
-  //   }
-  //   return -1;
-  // }
-
-  @override
-  doWeb() {
-    print("Can do Web Apps");
+bool hopSo(int n) {
+  int count = 0;
+  for (int i = 0; i <= n; i++) {
+    if (n % i == 0) {
+      count++;
+    }
+  }
+  if (count > 2) {
+    return true;
+  } else {
+    return false;
   }
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+// Bai 13
+int giaiThua(int number) {
+  // Đệ quy
+  if (number == 1) {
+    return 1;
   }
+  return number * giaiThua(number - 1);
 }
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Flutter Demo',
+//       theme: ThemeData(
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+//         primarySwatch: Colors.blue,
+//       ),
+//       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+//     );
+//   }
+// }
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+// class MyHomePage extends StatefulWidget {
+//   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
-  final String title;
+//   final String title;
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+//   @override
+//   State<MyHomePage> createState() => _MyHomePageState();
+// }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+// class _MyHomePageState extends State<MyHomePage> {
+//   int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+//   void _incrementCounter() {
+//     setState(() {
 
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
+//       _counter++;
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+
+//     return Scaffold(
+//       appBar: AppBar(
+
+//         title: Text(widget.title),
+//       ),
+//       body: Center(
+//         // Center is a layout widget. It takes a single child and positions it
+//         // in the middle of the parent.
+//         child: Column(
+
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             const Text(
+//               'You have pushed the button this many times:',
+//             ),
+//             Text(
+//               '$_counter',
+//               style: Theme.of(context).textTheme.headline4,
+//             ),
+//           ],
+//         ),
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: _incrementCounter,
+//         tooltip: 'Increment',
+//         child: const Icon(Icons.add),
+//       ), // This trailing comma makes auto-formatting nicer for build methods.
+//     );
+//   }
+// }
